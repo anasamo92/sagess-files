@@ -16,7 +16,7 @@ var _builtInStore2 = _interopRequireDefault(_builtInStore);
 
 var _uuid = require('uuid');
 
-var _focusCore = require('focus-core');
+var _sagessCore = require('sagess-core');
 
 var _dropzone = require('dropzone');
 
@@ -73,7 +73,7 @@ var FileUploadZone = function (_Component) {
             }, removalTimeout);
             var files = store.getFiles() || [];
             files.push(file);
-            _focusCore.dispatcher.handleServerAction({
+            _sagessCore.dispatcher.handleServerAction({
                 data: { files: files },
                 type: 'update'
             });
