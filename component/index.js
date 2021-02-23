@@ -6,15 +6,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _builtInStore = require('../store/built-in-store');
+
+var _builtInStore2 = _interopRequireDefault(_builtInStore);
+
 var _uuid = require('uuid');
+
+var _focusCore = require('focus-core');
 
 var _dropzone = require('dropzone');
 
@@ -32,48 +34,49 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var propTypes = {
-    withCredentials: _propTypes2.default.bool,
-    style: _propTypes2.default.object,
-    url: _propTypes2.default.string,
-    paramName: _propTypes2.default.string,
-    previewTemplate: _propTypes2.default.string,
-    removalTimeout: _propTypes2.default.number,
-    onFileSuccess: _propTypes2.default.func,
-    onFileComplete: _propTypes2.default.func
+    withCredentials: _react.PropTypes.bool,
+    style: _react.PropTypes.object,
+    url: _react.PropTypes.string,
+    paramName: _react.PropTypes.string,
+    previewTemplate: _react.PropTypes.string,
+    removalTimeout: _react.PropTypes.number,
+    store: _react.PropTypes.object,
+    onFileSuccess: _react.PropTypes.func,
+    onFileComplete: _react.PropTypes.func
 };
 
 var defaultProps = {
     paramName: 'upfile',
-    removalTimeout: 1500
+    removalTimeout: 1500,
+    store: _builtInStore2.default
 };
 
 /**
- * Component use for uploading files.
- * 
- * @class FileUploadZone
- * @extends {Component}
- */
+* Component use for uploading files.
+*/
 
 var FileUploadZone = function (_Component) {
     _inherits(FileUploadZone, _Component);
 
-    /**
-     * Creates an instance of FileUploadZone.
-     * @param {any} props props received
-     * @memberof FileUploadZone
-     */
     function FileUploadZone(props) {
         _classCallCheck(this, FileUploadZone);
 
         var _this = _possibleConstructorReturn(this, (FileUploadZone.__proto__ || Object.getPrototypeOf(FileUploadZone)).call(this, props));
 
         _this._onFileComplete = function (file) {
-            var removalTimeout = _this.props.removalTimeout;
+            var _this$props = _this.props,
+                removalTimeout = _this$props.removalTimeout,
+                store = _this$props.store;
 
             setTimeout(function () {
                 _this.dropzone.removeFile(file);
             }, removalTimeout);
-
+            var files = store.getFiles() || [];
+            files.push(file);
+            _focusCore.dispatcher.handleServerAction({
+                data: { files: files },
+                type: 'update'
+            });
             if (_this.props.onFileComplete) {
                 _this.props.onFileComplete(file);
             }
@@ -108,11 +111,8 @@ var FileUploadZone = function (_Component) {
         }
 
         /**
-         * Component will receive props.
-         * 
-         * @param {object} newProps the new props
-         * @memberof FileUploadZone
-         */
+        * Component will receive props
+        */
 
     }, {
         key: 'componentWillReceiveProps',
@@ -124,21 +124,6 @@ var FileUploadZone = function (_Component) {
                 this.dropzone.options.headers = newProps.headers;
             }
         }
-
-        /**
-         * Function called on file completion. See Dropzone doc for more informations.
-         * @param {any} file the file returned by dropzone.
-         * @memberof FileUploadZone
-         */
-
-        /**
-         * Function called on file success. See Dropzone doc for more informations.
-         * @param {any} file the file returned by dropzone.
-         * @param {any} response the response returned by dropzone.
-         * 
-         * @memberof FileUploadZone
-         */
-
     }, {
         key: 'render',
 
