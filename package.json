@@ -1,0 +1,54 @@
+{
+    "name": "sagess-files",
+    "version": "0.0.1",
+    "description": "Sagess file add on.",
+    "main": "index.js",
+    "scripts": {
+        "build": "better-npm-run babelify",
+        "fix-lint": "eslint src/** --ext .js,.jsx --fix --ignore-pattern __tests__ --ignore-pattern example",
+        "test": "echo \"No test specified\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/anasamo92/sagess-files.git"
+    },
+    "betterScripts": {
+        "babelify": {
+            "command": "babel src/ --out-dir . && (test -d \"component/style/\" || mkdir \"component/style/\") &&  cp -r ./src/component/style/index.scss ./component/style/index.scss",
+            "env": {
+                "BABEL_ENV": "production",
+                "LEGACY_EXPORTS": "true"
+            }
+        }
+    },
+    "keywords": [
+        "react",
+        "reactjs",
+        "boilerplate",
+        "hot",
+        "reload",
+        "hmr",
+        "live",
+        "edit",
+        "webpack"
+    ],
+    "babel": {
+        "presets": [
+            "sagess"
+        ]
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "babel-cli": "6.26.0",
+        "babel-preset-sagess": "^1.0.2",
+        "better-npm-run": "0.1.0",
+        "eslint-config-sagess": "^1.0.2",
+        "prop-types": "15.6.1",
+        "react": "16.2.0",
+        "react-dom": "16.2.0"
+    },
+    "dependencies": {
+        "dropzone": "5.4.0",
+        "uuid": "3.2.1"
+    }
+}
