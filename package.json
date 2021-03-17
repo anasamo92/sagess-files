@@ -1,6 +1,6 @@
 {
     "name": "sagess-files",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Sagess file add on.",
     "main": "index.js",
     "scripts": {
