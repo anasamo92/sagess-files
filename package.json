@@ -1,17 +1,20 @@
 {
     "name": "sagess-files",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "description": "Sagess file add on.",
     "main": "index.js",
+    "files": [
+        "component",
+        "example",
+        "index.js",
+        "store",
+        "dist"
+    ],
     "scripts": {
         "build": "better-npm-run babelify",
-        "fix-lint": "eslint src/** --ext .js,.jsx --fix --ignore-pattern __tests__ --ignore-pattern example",
         "prepublishOnly": "npm run build",
+        "fix-lint": "eslint src/** --ext .js,.jsx --fix --ignore-pattern __tests__ --ignore-pattern example",
         "test": "echo \"No test specified\""
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/anasamo92/sagess-files.git"
     },
     "betterScripts": {
         "babelify": {
@@ -21,6 +24,10 @@
                 "LEGACY_EXPORTS": "true"
             }
         }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/anasamo92/sagess-files.git"
     },
     "keywords": [
         "react",
@@ -42,8 +49,7 @@
     "peerDependencies": {
         "focus-core": "2.2.0",
         "react": "15.4.2",
-        "react-dom": "15.4.2",
-        "prop-types": "^15.6.1"
+        "react-dom": "15.4.2"
     },
     "devDependencies": {
         "babel-cli": "6.26.0",
@@ -51,7 +57,6 @@
         "better-npm-run": "0.1.0",
         "eslint-config-focus": "0.6.0",
         "focus-core": "2.2.0",
-        "prop-types": "15.6.1",
         "react": "15.4.2",
         "react-dom": "15.4.2"
     },
