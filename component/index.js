@@ -16,7 +16,7 @@ var _builtInStore2 = _interopRequireDefault(_builtInStore);
 
 var _uuid = require('uuid');
 
-var _focusCore = require('focus-core');
+var _focusCore = require('sagess-core');
 
 var _dropzone = require('dropzone');
 
